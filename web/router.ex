@@ -16,18 +16,14 @@ defmodule Discuss.Router do
   scope "/", Discuss do
     pipe_through :browser # Use the default browser stack
 
-    # get "/", TopicController, :index
-    # get "/topics/new", TopicController, :new
-    # get "/topics/:id", TopicController, :show
-    # post "/topics", TopicController, :create
-    # get "topics/:id/edit", TopicController, :edit
-    # put "/topics/:id", TopicController, :update
-
     resources "/", TopicController
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Discuss do
-  #   pipe_through :api
-  # end
+  scope "/auth", Discuss do
+    pipe_through :browser
+
+    # wildcard to later include other uberauth providers
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
+  end
 end
