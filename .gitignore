@@ -23,4 +23,7 @@ erl_crash.dump
 # variables.
 /config/prod.secret.exs
 
+# Github oauth credentials
+/config/github_oauth.exs
+
 /.env

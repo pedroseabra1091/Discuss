@@ -6,3 +6,4 @@
 
   <%= submit "Update Topic", class: "btn btn-primary" %>
 <% end %>
+2
