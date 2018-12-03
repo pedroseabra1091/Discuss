@@ -1,1 +1,4 @@
 <%= @topic.title %>
+<script>
+  window.createSocket(<%= topic.id %>)
+</script>
