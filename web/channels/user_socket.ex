@@ -1,3 +1,5 @@
+require IEx
+
 defmodule Discuss.UserSocket do
   use Phoenix.Socket
 
@@ -6,8 +8,14 @@ defmodule Discuss.UserSocket do
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
 
-  def connect(_params, socket) do
-    {:ok, socket}
+  def connect(%{"token" => token}, socket) do
+    # Extracts information from the token
+    case Phoenix.Token.verify(socket, "key", token) do
+      {:ok, user_id} ->
+        {:ok, assign(socket, :user_id, user_id)}
+      {:error, _error} ->
+        :error
+    end
   end
 
   def id(_socket), do: nil

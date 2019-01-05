@@ -1,3 +1,5 @@
+require IEx
+
 defmodule Discuss.CommentsChannel do
   use Phoenix.Socket
   use Discuss.Web, :channel
@@ -19,7 +21,7 @@ defmodule Discuss.CommentsChannel do
     topic = socket.assigns.topic
 
     changeset = topic
-    |> build_assoc(:comments)
+    |> build_assoc(:comments, user_id: socket.assigns.user_id)
     |> Comment.changeset(%{content: content})
 
     case Repo.insert(changeset) do
