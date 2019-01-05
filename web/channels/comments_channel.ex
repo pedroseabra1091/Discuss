@@ -12,7 +12,7 @@ defmodule Discuss.CommentsChannel do
 
     topic = Topic
     |> Repo.get(topic_id)
-    |> Repo.preload(:comments)
+    |> Repo.preload(comments: [:user])
 
     {:ok, %{comments: topic.comments}, assign(socket, :topic, topic)}
   end
@@ -29,7 +29,7 @@ defmodule Discuss.CommentsChannel do
         broadcast!(
           socket,
           "comments:#{topic.id}:new",
-          %{comment: comment}
+          %{comment: Repo.preload(comment, :user)}
         )
         {:reply, :ok, socket}
 

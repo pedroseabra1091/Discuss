@@ -1,7 +1,8 @@
 defmodule Discuss.Comment do
   use Discuss.Web, :model
 
-  @derive {Poison.Encoder, only: [:content]}
+  # Poison is the library that Phoenix uses to transform models into JSON data
+  @derive {Poison.Encoder, only: [:content, :user]}
 
   schema "comments" do
 
